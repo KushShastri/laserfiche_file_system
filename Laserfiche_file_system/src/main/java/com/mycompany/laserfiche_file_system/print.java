@@ -1,3 +1,4 @@
+package com.mycompany.laserfiche_file_system;
 
 
 import com.laserfiche.api.client.model.AccessKey;

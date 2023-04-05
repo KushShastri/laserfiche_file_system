@@ -51,7 +51,7 @@ public class CloudFilter {
     public List<Entry> Length(List<Entry> e, long length, String operator) {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
-            if ((current.getEntryType()).toString().equals("File")) {
+            if (!(current.getEntryType()).toString().equals(("Folder"))) {
                 File file = toFile(current.getId());
                 if (file.isFile()) {
                     switch (operator) {
@@ -97,7 +97,7 @@ public class CloudFilter {
     public List<Entry> Content(List<Entry> e, String key) throws IOException {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
-            if ((current.getEntryType()).toString().equals("File")) {
+            if (!(current.getEntryType()).toString().equals(("Folder"))) {
                 File file = toFile(current.getId());
                 if (file.isFile()) {
                     List<String> data = Files.readAllLines(Path.of(file.getAbsolutePath()));
@@ -119,7 +119,7 @@ public class CloudFilter {
 
         for (Entry current : entrys) {
             count = 0;
-            if ((current.getEntryType()).toString().equals("File")) {
+            if (!(current.getEntryType()).toString().equals(("Folder"))) {
                 File file = toFile(current.getId());
                 if (file.isFile()) {
                     try {

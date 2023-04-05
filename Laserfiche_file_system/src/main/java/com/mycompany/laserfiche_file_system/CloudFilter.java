@@ -105,11 +105,11 @@ public class CloudFilter {
         return ret;
     }
 
-    public List<Entry> Count(List<Entry> entrys, int min, String key) throws IOException {
+    public List<Entry> Count(List<Entry> entries, int min, String key) throws IOException {
         List<Entry> ret = new ArrayList<Entry>();
         int count = 0;
 
-        for (Entry current : entrys) {
+        for (Entry current : entries) {
             count = 0;
             if (!(current.getEntryType()).toString().equals(("Folder"))) {
                 File file = toFile(current.getId());

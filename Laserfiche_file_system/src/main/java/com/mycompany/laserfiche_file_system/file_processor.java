@@ -22,14 +22,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import java.io.Reader;
 
 public class file_processor {
     public static void main(String[] args) {
-        List<Entry> entries = new ArrayList<Entry>();
-        Entry e1 = new Entry();
-        entries.add(e1);
-        e1.setFullPath("C:\\Users\\Shane\\Downloads\\SampleProject\\DownloadedFile.txt");
-        print.printlocalentry(entries);
+        String jsonPath = ""; 
+        JSONParser parser = new JSONParser();
+        Entry e = new Entry();
+
+
         
         
 

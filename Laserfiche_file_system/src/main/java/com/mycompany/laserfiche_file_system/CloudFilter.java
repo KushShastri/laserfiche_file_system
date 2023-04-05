@@ -29,16 +29,8 @@ import java.util.function.Consumer;
  * @author Shane
  */
 public class CloudFilter {
-    // get access to the API
-    String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
-    String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
-    String repositoryId = "r-0001d410ba56";
 
-    AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
-
-    RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(servicePrincipalKey, accessKey);
-
-    public List<Entry> Name(List<Entry> e, String key) {
+    public static List<Entry> Name(List<Entry> e, String key) {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             if (current.getName().contains(key)) {
@@ -48,7 +40,7 @@ public class CloudFilter {
         return ret;
     }
 
-    public List<Entry> Length(List<Entry> e, long length, String operator) {
+    public static List<Entry> Length(List<Entry> e, long length, String operator) {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             if (!(current.getEntryType()).toString().equals(("Folder"))) {
@@ -94,7 +86,7 @@ public class CloudFilter {
         return ret;
     }
 
-    public List<Entry> Content(List<Entry> e, String key) throws IOException {
+    public static List<Entry> Content(List<Entry> e, String key) throws IOException {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             if (!(current.getEntryType()).toString().equals(("Folder"))) {
@@ -151,7 +143,15 @@ public class CloudFilter {
 
     }
 
-    public File toFile(int id) {
+    public static File toFile(int id) {
+        // get access to the API
+        String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
+        String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
+        String repositoryId = "r-0001d410ba56";
+
+        AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
+
+        RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(servicePrincipalKey, accessKey);
         int entryIdToDownload = id;
         final String FILE_NAME = "DownloadedFile.txt";
         File exportedFile = new File(FILE_NAME);

@@ -20,18 +20,18 @@ import java.io.*;
 public class print {
 
     //get access to the API
-    String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
-    String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
-    String repositoryId = "r-0001d410ba56";
+    public static String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
+    public static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
+    public static String repositoryId = "r-0001d410ba56";
             
-    AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
+    public static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
 
-    RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
+    public static RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(
             servicePrincipalKey, accessKey);
 
 
     
-    public List <Entry> printlocalentry(List <Entry> x){ //receives a local directory and prints requirements 
+    public static List <Entry> printlocalentry(List <Entry> x){ //receives a local directory and prints requirements 
 
         //check if the entry is a file or a folder 
 
@@ -56,7 +56,7 @@ public class print {
     }
     
 
-    public List <Entry> printremoteentry(List <Entry> x){ //receives a file from the API, prints the relevant information
+    public static List <Entry> printremoteentry(List <Entry> x){ //receives a file from the API, prints the relevant information
 
         int entryid =0;
 
@@ -88,7 +88,7 @@ public class print {
     }
     
     
-    public long remotelength(int id){ //receives the id to find specific file and get its length  
+    public static long remotelength(int id){ //receives the id to find specific file and get its length  
         
         
         // Download an ENTRY 

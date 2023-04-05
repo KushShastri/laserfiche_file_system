@@ -38,7 +38,7 @@ public class Filter {
 
     RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(servicePrincipalKey, accessKey);
 
-    public List<Entry> Name(List<Entry> e, String key) {
+    public static List<Entry> Name(List<Entry> e, String key) {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             if (current.getName().contains(key)) {
@@ -48,7 +48,7 @@ public class Filter {
         return ret;
     }
 
-    public List<Entry> Length(List<Entry> e, long length, String operator) {
+    public static List<Entry> Length(List<Entry> e, long length, String operator) {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             File file = new File(current.getFullPath());
@@ -92,7 +92,7 @@ public class Filter {
         return ret;
     }
 
-    public List<Entry> Content(List<Entry> e, String key) throws IOException {
+    public static List<Entry> Content(List<Entry> e, String key) throws IOException {
         List<Entry> ret = new ArrayList<Entry>();
         for (Entry current : e) {
             File file = new File(current.getFullPath());
@@ -109,7 +109,7 @@ public class Filter {
         return ret;
     }
 
-    public List<Entry> Count(List<Entry> entrys, int min, String key) throws IOException {
+    public static List<Entry> Count(List<Entry> entrys, int min, String key) throws IOException {
         List<Entry> ret = new ArrayList<Entry>();
         int count = 0;
 

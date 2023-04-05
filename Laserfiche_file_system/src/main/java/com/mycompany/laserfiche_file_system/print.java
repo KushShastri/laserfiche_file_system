@@ -36,7 +36,7 @@ public class print {
         //check if the entry is a file or a folder 
 
         for(Entry thisentry:x){ //increment through the list of entries ot get each individual entry's information 
-            File check=new File(thisentry.getFullPath()); //createa  file with the path of the entry 
+            File check=new File(thisentry.getFullPath()); //create a file with the path of the entry 
 
             if(check.isFile() || check.isDirectory()){ //if it is a file or directory 
                 System.out.println("Name: "+thisentry.getName()+"....absolute path: "+thisentry.getFullPath());
@@ -58,33 +58,19 @@ public class print {
 
     public static List <Entry> printremoteentry(List <Entry> x){ //receives a file from the API, prints the relevant information
 
-        int entryid =0;
-
-        //cycle through the child entries (files) in the API
-
-        // Get information about the child entries of the Root entry
-        ODataValueContextOfIListOfEntry result = client
-                .getEntriesClient()
-                .getEntryListing(repositoryId, entryid, true, null, null, null, null, null, "name", null, null, null).join();
-
-        List<Entry> entries = result.getValue(); //creates a list of all the child roots in the API
-
-        for(Entry thisentry: entries){
-
+        for(Entry thisentry: x){
             System.out.println("Entry ID: "+thisentry.getId()+"....Name: "+thisentry.getName()+"....absolute path: "+thisentry.getFullPath());
 
-
-            if(thisentry.getEntryType().toString()=="Folder"){
+            if(!(thisentry.getEntryType().toString()).equals("Folder")){ //checks if the entry is not a folder (directory), it's gonna read the length
                 System.out.println("...length: "+remotelength(thisentry.getId()));
             }
 
-            else{ //if the entry isn't a folder, but a directory 
+            else{ //if the entry is a folder (directory), it returns a length of 0
             System.out.println("...length :"+0);
             }
         }
 
-
-        return x;
+        return x; //return the list of entries passed in
     }
     
     
@@ -95,9 +81,9 @@ public class print {
           int entryIdToDownload = id;
 
         //create an empty file with the same pathname that the downloaded file. This variable is made so you can get length 
-        File temp=new File("enter pathname "); //ENTER PATHNAME OF FILE BEING READ HERE  
+        File temp=new File("DownloadFile.txt"); //ENTER PATHNAME OF FILE BEING READ HERE  
 
-          final String FILE_NAME = "DownloadedFile.txt"; //ENTER PATHNAME HERE TOO
+          final String FILE_NAME = "DownloadFile.txt"; //ENTER PATHNAME HERE TOO
           Consumer<InputStream> consumer = inputStream -> {
               File exportedFile = new File(FILE_NAME);
 

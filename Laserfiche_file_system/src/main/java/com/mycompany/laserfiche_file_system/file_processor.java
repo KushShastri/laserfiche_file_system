@@ -1,5 +1,6 @@
 package com.mycompany.laserfiche_file_system;
 
+import com.google.gson.JsonArray;
 import com.laserfiche.api.client.model.AccessKey;
 import com.laserfiche.repository.api.RepositoryApiClient;
 import com.laserfiche.repository.api.RepositoryApiClientImpl;
@@ -25,14 +26,30 @@ import org.json.simple.parser.ParseException;
 import java.io.Reader;
 
 public class file_processor {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException{
         String jsonPath = ""; 
         JSONParser parser = new JSONParser();
-        Entry e = new Entry();
+        List<Entry> entries = new ArrayList<Entry>();
+
+        JSONParser par = new JSONParser();
+		Reader reader = new FileReader(jsonPath);
+
+        Object jsonObj = par.parse(reader);
+        JSONObject jsonObject = (JSONObject) jsonObj;
+
+        JsonArray entryList = (JsonArray)jsonObject.get("input_entries");
+        
 
 
+
+      
         
+
         
+
+        
+
+
 
 
     }

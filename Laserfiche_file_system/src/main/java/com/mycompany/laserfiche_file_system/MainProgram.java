@@ -47,13 +47,14 @@ public class MainProgram {
         String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
         String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
         AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
-
+        String repositoryId = "r-0001d410ba56";
         RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(servicePrincipalKey, accessKey);
 
-        String jsonPath = "C:\\Users\\Shane\\laserfiche_file_system\\Laserfiche_file_system\\src\\main\\java\\com\\mycompany\\laserfiche_file_system\\Test Scenario.json";
+        String jsonPath = "C:/Users/Tony/Downloads/TestScenario(3).json";
 
             
         try {
+            
             // Read the JSON file
             FileReader reader = new FileReader(jsonPath);
             JSONParser parser = new JSONParser();
@@ -68,13 +69,14 @@ public class MainProgram {
             String filePath = "";
             String etype = "";
             String entryid = "";
-            String repoid = "";
+            // String repoid = "";
 
             List<Entry> entryList = new ArrayList<Entry>();
             FileProcessor fp = new FileProcessor();
 
             // Iterate over the processing elements and create Java objects for each one
             for (Object processingElementObj : processingElements) {
+                
                 JSONObject processingElementJson = (JSONObject) processingElementObj;
                 type = (String) processingElementJson.get("type");
                 entries = (JSONArray) processingElementJson.get("input_entries");
@@ -85,22 +87,28 @@ public class MainProgram {
                         JSONObject inputEntryJson = (JSONObject) entriesObj;
                         etype = (String) inputEntryJson.get("type");
                         entryid = (String) inputEntryJson.get("entryId");
-                        repoid = (String) inputEntryJson.get("repositoryId");
+                        // repoid = (String) inputEntryJson.get("repositoryId");
                         filePath = (String) inputEntryJson.get("path");
                     }
                     for (Object paramObj : param) {
                         JSONObject paramJson = (JSONObject) paramObj;
                         pValue = (String) paramJson.get("value");
-
                     }
+
+                    //above, program works as expected. Doing unit testing 
                     if (etype.equals("local")) {
                         Entry en = new Entry();
                         en.setFullPath(filePath);
                         entryList.add(en);
+                        
                         entryList = fp.listLocal(entryList, Integer.parseInt(pValue));
+
+                        for(Entry entryl : entryList){
+                            System.out.println(entryl.getFullPath()); 
+                        }
                     } else {
-                        fp.setRepo(repoid);
-                        Entry entry = client.getEntriesClient().getEntry(repoid, Integer.parseInt(entryid), null)
+                        fp.setRepo(repositoryId);
+                        Entry entry = client.getEntriesClient().getEntry(repositoryId, Integer.parseInt(entryid), null)
                                 .join();
                         entryList.add(entry);
                         entryList = fp.listRemote(entryList, Integer.parseInt(pValue));
@@ -108,6 +116,7 @@ public class MainProgram {
                     }
 
                 } else if (type.toLowerCase().contains("filter".toLowerCase())) {
+                    
                     String val1 = "";
                     String val2 = "";
 

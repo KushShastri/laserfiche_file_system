@@ -171,6 +171,7 @@ public class MainProgram {
                         fp.printlocalentry(entryList);
                     } else {
                         fp.printremoteentry(entryList);
+                        System.out.println("Test");
                     }
 
                 }

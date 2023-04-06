@@ -86,7 +86,6 @@ public class MainProgram {
                         entryid = (String) inputEntryJson.get("entryId");
                         repoid = (String) inputEntryJson.get("repositoryId");
                         filePath = (String) inputEntryJson.get("path");
-
                     }
                     for (Object paramObj : param) {
                         JSONObject paramJson = (JSONObject) paramObj;
@@ -99,6 +98,7 @@ public class MainProgram {
                         entryList.add(en);
                         entryList = fp.listLocal(entryList, Integer.parseInt(pValue));
                     } else {
+                        fp.setRepo(repoid);
                         Entry entry = client.getEntriesClient().getEntry(repoid, Integer.parseInt(entryid), null)
                                 .join();
                         entryList.add(entry);
@@ -118,7 +118,6 @@ public class MainProgram {
                         case "lengthfilter":
                             paramJson = (JSONObject) param.get(1);
                             val2 = (String) paramJson.get("value");
-                            System.out.println(val2);
 
                             if (etype.equals("local")) {
                                 entryList = fp.LocalLengthFilter(entryList, Long.parseLong(val1), val2);
@@ -167,10 +166,10 @@ public class MainProgram {
                         fp.splitRemoteEntry(entryList, Integer.parseInt(val));
 
                     }
-                }else if(type.toLowerCase().equals("print")){
+                } else if (type.toLowerCase().equals("print")) {
                     if (etype.equals("local")) {
                         fp.printlocalentry(entryList);
-                    }else{
+                    } else {
                         fp.printremoteentry(entryList);
                     }
 

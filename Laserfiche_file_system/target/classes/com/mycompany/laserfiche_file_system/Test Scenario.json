@@ -5,8 +5,9 @@
 			"type": "List",
 			"input_entries": [
 				{
-					"type": "local",
-					"path": "c:\\sample\\text_files"
+					"type": "remte",
+					"repositoryId": "r-0001d410ba56",
+					"entryId": "18"
 				}
 			],
 			"parameters": [

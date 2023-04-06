@@ -37,7 +37,7 @@ public class FileProcessor {
     //Acess the API
        public static String servicePrincipalKey = "5w-5Sbp5T2eyBsduFo-g";
        public static String accessKeyBase64 = "ewoJImN1c3RvbWVySWQiOiAiMTQwMTM1OTIzOCIsCgkiY2xpZW50SWQiOiAiMDcwYzllYTYtMzQwZS00ODdmLTlmNzItM2YyNjQ0NWNkZWZmIiwKCSJkb21haW4iOiAibGFzZXJmaWNoZS5jYSIsCgkiandrIjogewoJCSJrdHkiOiAiRUMiLAoJCSJjcnYiOiAiUC0yNTYiLAoJCSJ1c2UiOiAic2lnIiwKCQkia2lkIjogInlpUkFKeGZ0eVpZVXk1TFBFYUhmTF9MRS03RWZjSW5nQ3NCVGtxa09yb28iLAoJCSJ4IjogImJ2ZmpDQU9acUdYeVhLdXNELUpEdFkzRVhwNms5WWtTOFZWYzRicER2OFEiLAoJCSJ5IjogInRmYXBLSDc4Qm45LUp5aVZQeDRrQWVDZFlqSjN6RWxHLVZGeU9lS0dNUUEiLAoJCSJkIjogIlNXei1kTUI1bTktWWtkNFJiLVFyMllYbE9BVlpYV0loV3hxVi1QTkFBWEkiLAoJCSJpYXQiOiAxNjc3Mjk3NzE1Cgl9Cn0=";
-       public static String repositoryId = "";
+       public static String repositoryId = "r-0001d410ba56";
        public static AccessKey accessKey = AccessKey.createFromBase64EncodedAccessKey(accessKeyBase64);
 
        public static RepositoryApiClient client = RepositoryApiClientImpl.createFromAccessKey(servicePrincipalKey, accessKey);
@@ -299,6 +299,7 @@ public List<Entry> CloudCountFilter(List<Entry> entries, int min, String key) th
 
 //**************************************************Split Processing element***********************************************************
 public List<File> splitLocalEntry(List<Entry> entries, int Lines) throws IOException {
+    
     List<File> generatedEntries = new ArrayList<File>();
     for (Entry entry : entries){
         File file = new File(entry.getFullPath());
@@ -376,12 +377,10 @@ public List<Entry> listLocal(List<Entry> entries, int max) {
 
         String outerPath = outer.getFullPath();
         File file = new File(outerPath);
-        
-        if(!file.isDirectory()){
-            continue;
-        }
+
         
         File[] fileNames = file.listFiles();
+
 
         for (int i = 0; i < Math.min(fileNames.length, max); i++) {
             Entry temp = new Entry();
@@ -398,29 +397,18 @@ public List<Entry> listRemote(List<Entry> entries, int max) {
         //separates the root entries from the list
     for(Entry outter: entries){
 
-        //getting the outter most ID
+        //getting the root ID
         int rootEntryId = outter.getId();
         
-        //grabs all the OG files and then spits out a list of inners from root
+        //grabs all the files inside root and then spits out a list of inners
         ODataValueContextOfIListOfEntry result = client.getEntriesClient().getEntryListing(repositoryId, rootEntryId, true, null, null, null, null, null, "name", null, null, null).join();
         List<Entry> rootInners = result.getValue();
 
         for(Entry inner : rootInners){
-
-            rootEntryId = inner.getId();
-            Entry compare = new Entry();
-
-            compare.setEntryType(EntryType.FOLDER);
-            if(inner.getEntryType() == compare.getEntryType()){
-                System.out.println(inner.getEntryType());
-                continue;
-            }
-
             for (int i = 0; i < Math.min(rootInners.size(), max); i++) {
                 //here we take the inner entries and we add them to the list
                 ans.add(inner);
             }
-
         }
 
     }
@@ -469,6 +457,7 @@ public List <Entry> printlocalentry(List <Entry> x){ //receives a local director
     //check if the entry is a file or a folder 
 
     for(Entry thisentry:x){ //increment through the list of entries ot get each individual entry's information 
+   
         File check=new File(thisentry.getFullPath()); //create a file with the path of the entry 
 
         if(check.isFile() || check.isDirectory()){ //if it is a file or directory 

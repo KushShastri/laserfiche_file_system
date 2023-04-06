@@ -52,6 +52,7 @@ public class MainProgram {
 
         String jsonPath = "C:\\Users\\Shane\\laserfiche_file_system\\Laserfiche_file_system\\src\\main\\java\\com\\mycompany\\laserfiche_file_system\\Test Scenario.json";
 
+            
         try {
             // Read the JSON file
             FileReader reader = new FileReader(jsonPath);
@@ -103,6 +104,7 @@ public class MainProgram {
                                 .join();
                         entryList.add(entry);
                         entryList = fp.listRemote(entryList, Integer.parseInt(pValue));
+
                     }
 
                 } else if (type.toLowerCase().contains("filter".toLowerCase())) {
@@ -165,13 +167,14 @@ public class MainProgram {
                     } else {
                         fp.splitRemoteEntry(entryList, Integer.parseInt(val));
 
+
                     }
                 } else if (type.toLowerCase().equals("print")) {
                     if (etype.equals("local")) {
                         fp.printlocalentry(entryList);
                     } else {
                         fp.printremoteentry(entryList);
-                        System.out.println("Test");
+
                     }
 
                 }
@@ -180,5 +183,6 @@ public class MainProgram {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 }

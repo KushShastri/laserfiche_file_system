@@ -406,10 +406,13 @@ public List<Entry> listRemote(List<Entry> entries, int max) {
         List<Entry> rootInners = result.getValue();
 
         for(Entry inner : rootInners){
+
             rootEntryId = inner.getId();
             Entry compare = new Entry();
-            compare.setEntryType(EntryType.DOCUMENT);
+
+            compare.setEntryType(EntryType.FOLDER);
             if(inner.getEntryType() == compare.getEntryType()){
+                System.out.println(inner.getEntryType());
                 continue;
             }
 
@@ -417,10 +420,13 @@ public List<Entry> listRemote(List<Entry> entries, int max) {
                 //here we take the inner entries and we add them to the list
                 ans.add(inner);
             }
+
         }
 
     }
+
     return ans;
+    
 }
 //***********************************************Rename Processing Element**************************************************************
 public List<Entry> Rename1 (List<Entry> entries, String suffix){
